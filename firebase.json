@@ -5,16 +5,11 @@
   },
   "hosting": {
     "public": "public",
+    "site":"hospital-management-syst",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
