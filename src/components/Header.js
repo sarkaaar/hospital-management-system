@@ -1,21 +1,35 @@
 import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom"; 
-
+import { useNavigate } from "react-router-dom";
+// import { signOut, onAuthStateChanged } from "firebase/auth";
+// import { auth } from "../firebase-config";
 
 export default function Header() {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+  const logout = async () => {
+    // await signOut(auth);
+    // localStorage.clear();
+    // history.push("/");
+    navigate("/sign_in");
+  };
+
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser(currentUser);
+  //   // localStorage.setItem("token", user.accessToken);
+  // });
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <div sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -48,6 +62,15 @@ export default function Header() {
             </Button>
             <Button color="inherit">
               <NavLink
+                to={`/viewDoctors`}
+                activeClassName="active"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                View Doctors
+              </NavLink>
+            </Button>
+            <Button color="inherit">
+              <NavLink
                 to={`/viewAppointments`}
                 activeClassName="active"
                 style={{ textDecoration: "none", color: "white" }}
@@ -55,18 +78,20 @@ export default function Header() {
                 View Appointments
               </NavLink>
             </Button>
+            <Button color="inherit">
+              <NavLink
+                to={`/viewReports`}
+                activeClassName="active"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                View Reports
+              </NavLink>
+            </Button>
           </Typography>
 
-          {token ? (
+          {user.email ? (
             <div>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  console.log("logout");
-                  localStorage.clear();
-                  navigate('/sign_in');
-                }}
-              >
+              <Button color="inherit" onClick={logout}>
                 Logout
               </Button>
             </div>
@@ -83,18 +108,8 @@ export default function Header() {
               </Button>
             </div>
           )}
-
-          {/* <Button color="inherit">
-            <NavLink
-              to={`/sign_in`}
-              activeClassName="active"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Login
-            </NavLink>
-          </Button> */}
         </Toolbar>
       </AppBar>
-    </Box>
+    </div>
   );
 }

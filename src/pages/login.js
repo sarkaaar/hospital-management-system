@@ -1,20 +1,20 @@
+import {
+  // createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../firebase-config";
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-// import SiteHeader from "../components/SiteHeader";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: "20px",
   },
   avatar: {
     margin: theme.spacing(1),
+    width: "70px",
+    height: "70px",
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -32,52 +35,49 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    display: "flex",
+    margin: "auto",
+    marginTop: "20px",
   },
 }));
 
 export default function SignIn() {
   const classes = useStyles();
-  // const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
 
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState({});
 
-  //   useEffect(() => {
-  //     if (localStorage.getItem("token") != null) history.goBack();
-  //   }, [history]);
+  // Keep the Satate of Login
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+    // localStorage.setItem("token", user.accessToken);
+  });
 
-  function login() {
-    axios
-      .post(
-        "http://localhost:1337/api/auth/local",
-        {
-          identifier: email,
-          password: password,
-        },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((response) => {
-        // console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
-        localStorage.setItem("token", response.data.jwt);
-        // localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate('/addPatient');
+  // Login Function
+  const login = async () => {
+    try {
+      const LoggedInUser = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(LoggedInUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      })
-      .catch((error) => {
-        console.log("An error occurred:", error.response);
-        alert("unable to login");
-      });
-  }
+  // Logout Function
+  const logout = async () => {
+    await signOut(auth);
+  };
 
   return (
     <div>
       <Header />
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -90,7 +90,7 @@ export default function SignIn() {
             // noValidate
           >
             <TextField
-              variant="outlined"
+              // variant="outlined"
               margin="normal"
               type="email"
               label="Email"
@@ -100,7 +100,7 @@ export default function SignIn() {
               required
             />
             <TextField
-              variant="outlined"
+              // variant="outlined"
               margin="normal"
               type="password"
               label="Password"
@@ -109,19 +109,20 @@ export default function SignIn() {
               required
               fullWidth
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               variant="contained"
+              sx={{ padding: "100px" }}
               color="primary"
               className={classes.submit}
               onClick={() => login()}
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -130,13 +131,21 @@ export default function SignIn() {
               <Grid item>
                 <Link href="/signup">{"Don't have an account? Sign Up"}</Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </form>
-
-          <h1>{password}</h1>
-          <h1>{email}</h1>
         </div>
       </Container>
+      <div>
+        <h1>USer Logged In</h1>
+        <h3>{user?.email}</h3>
+      </div>
+      <div>
+        <Button onClick={logout}>Logout</Button>
+      </div>
+      <div>
+        <Button onClick={()=>{console.log(user.accessToken)}}>Print Token</Button>
+      </div>
+      
     </div>
   );
 }

@@ -1,13 +1,11 @@
-import "./App.css";
-
 import SignIn from "./pages/login";
 import AddDoctor from "./pages/addDoctor";
 import AddPatient from "./pages/addPatient";
-import ViewAppointments from "./pages/viewAppointments";
+import ViewAppointments from "./pages/viewDoctors";
 import Home from "./pages/home";
-import Reports from "./pages/reports"
+import Reports from "./pages/reports";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import ViewDoctors from "./pages/viewDoctors";
 function App() {
   return (
     <Router>
@@ -18,6 +16,7 @@ function App() {
         <Route exact path="/addPatient" element={<AddPatient />} />
         <Route exact path="/viewAppointments" element={<ViewAppointments />} />
         <Route exact path="/viewReports" element={<Reports />} />
+        <Route exact path="/viewDoctors" element={<ViewDoctors />} />
       </Routes>
     </Router>
   );
