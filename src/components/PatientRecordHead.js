@@ -19,34 +19,34 @@ export default function PatientRecord(obj) {
           justifyItems: "space-between",
         }}
       >
-         <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.MR_no}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.name}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.time}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.date}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.issue}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.doc_Name}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.gender}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.age}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.adress}
         </Typography>
-        <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h5">
           {obj.obj.phone_no}
         </Typography>
         <Typography>
@@ -63,7 +63,7 @@ export default function PatientRecord(obj) {
           <Button>
             <AirlineSeatFlatIcon />
           </Button>
-        </Typography> 
+        </Typography>
       </CardContent>
     </Card>
   );

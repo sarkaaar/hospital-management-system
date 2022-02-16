@@ -1,7 +1,7 @@
 import SignIn from "./pages/login";
 import AddDoctor from "./pages/addDoctor";
 import AddPatient from "./pages/addPatient";
-import ViewAppointments from "./pages/viewDoctors";
+import ViewAppointments from "./pages/viewAppointments";
 import Home from "./pages/home";
 import Reports from "./pages/reports";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

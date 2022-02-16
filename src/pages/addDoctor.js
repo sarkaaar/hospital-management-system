@@ -6,6 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
+
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,8 +39,20 @@ export default function AddDoctor() {
   const [name, setName] = useState("");
   const [specialisedIn, setSpecialisedIn] = useState("");
   const [fees, setFees] = useState("");
+  const navigate = useNavigate();
 
-  function addDoctor() {}
+  const doctorsCollection = collection(db, "doctors");
+
+  const addDoctor = async () => {
+    const newDoctor = {
+      fees: fees,
+      name: name,
+      specialisedIn: specialisedIn,
+    };
+    await addDoc(doctorsCollection, newDoctor);
+    navigate("/addDoctor");
+    await window.location.reload(false);
+  };
 
   return (
     <div>
@@ -44,15 +60,12 @@ export default function AddDoctor() {
 
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
+          <Avatar className={classes.avatar}></Avatar>
           <Typography component="h1" variant="h5">
             Add a New Doctor
           </Typography>
           <form className={classes.form}>
             <TextField
-              // variant="outlined"
               margin="normal"
               type="name"
               label="Name"
@@ -62,7 +75,6 @@ export default function AddDoctor() {
               required
             />
             <TextField
-              // variant="outlined"
               margin="normal"
               type="text"
               label="Specialized In"
@@ -72,7 +84,6 @@ export default function AddDoctor() {
               fullWidth
             />
             <TextField
-              // variant="outlined"
               margin="normal"
               type="number"
               label="Fees"
@@ -86,7 +97,7 @@ export default function AddDoctor() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => addDoctor()}
+              onClick={addDoctor}
             >
               Add Doctor
             </Button>

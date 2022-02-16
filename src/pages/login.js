@@ -1,5 +1,4 @@
 import {
-  // createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
@@ -52,7 +51,7 @@ export default function SignIn() {
   // Keep the Satate of Login
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-    // localStorage.setItem("token", user.accessToken);
+    localStorage.setItem("token", user.accessToken);
   });
 
   // Login Function
@@ -85,12 +84,9 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form
-            className={classes.form}
-            // noValidate
-          >
+          <form className={classes.form}>
             <TextField
-              // variant="outlined"
+              variant="outlined"
               margin="normal"
               type="email"
               label="Email"
@@ -100,7 +96,7 @@ export default function SignIn() {
               required
             />
             <TextField
-              // variant="outlined"
+              variant="outlined"
               margin="normal"
               type="password"
               label="Password"
@@ -109,10 +105,7 @@ export default function SignIn() {
               required
               fullWidth
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+
             <Button
               variant="contained"
               sx={{ padding: "100px" }}
@@ -122,20 +115,10 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup">{"Don't have an account? Sign Up"}</Link>
-              </Grid>
-            </Grid> */}
           </form>
         </div>
       </Container>
-      <div>
+      {/* <div>
         <h1>USer Logged In</h1>
         <h3>{user?.email}</h3>
       </div>
@@ -143,9 +126,14 @@ export default function SignIn() {
         <Button onClick={logout}>Logout</Button>
       </div>
       <div>
-        <Button onClick={()=>{console.log(user.accessToken)}}>Print Token</Button>
-      </div>
-      
+        <Button
+          onClick={() => {
+            console.log(user.accessToken);
+          }}
+        >
+          Print Token
+        </Button>
+      </div> */}
     </div>
   );
 }

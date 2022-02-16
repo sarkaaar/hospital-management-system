@@ -7,20 +7,15 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useNavigate } from "react-router-dom"; 
-
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import FormControl from "@mui/material/FormControl";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { db } from "../firebase-config";
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,8 +52,27 @@ export default function AddPatient() {
   const [adress, setAdress] = useState("");
   const [phone_no, setPhone_no] = useState(0);
 
+  // const [doctors,setDoctors]=useState([]);
+
   const patientsCollection = collection(db, "patients");
 
+  //  Get Doctors Names
+  const [doctors, setDoctors] = useState([]);
+  const doctorsCollection = collection(db, "doctors");
+
+  useEffect(() => {
+    console.log("useEfect Working");
+    const getPatients = async () => {
+      const data = await getDocs(doctorsCollection);
+
+      setDoctors(data.docs.map((doc) => doc.data().name)); // data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    };
+    getPatients();
+
+    console.log(doctors);
+  }, []);
+
+  // Add Patients
   const addPatient = async () => {
     const newPatient = {
       MR_no: MR_no,
@@ -74,13 +88,20 @@ export default function AddPatient() {
     };
     await addDoc(patientsCollection, newPatient);
     // navigate('/addPatient');
-     await window.location.reload(false);
+    await window.location.reload(false);
   };
 
   return (
     <div>
       <Header />
       <Container component="main" maxWidth="xs">
+        <Button
+          onClick={() => {
+            console.log(doctors);
+          }}
+        >
+          Click Me
+        </Button>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -144,7 +165,7 @@ export default function AddPatient() {
               fullWidth
               required
             />
-            <TextField
+            {/* <TextField
               variant="outlined"
               margin="normal"
               type="text"
@@ -153,17 +174,40 @@ export default function AddPatient() {
               onChange={(e) => setDoc_Name(e.target.value)}
               fullWidth
               required
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              type="text"
-              label="Gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-              fullWidth
-            />
+            /> */}
+            <FormControl fullWidth style={{ margin: "10px 0" }}>
+              <InputLabel id="demo-simple-select-label">Doctor Name</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={doc_Name}
+                label="Doctor Name"
+                onChange={(e) => {
+                  setDoc_Name(e.target.value);
+                }}
+              >
+                {doctors.map((item) => {
+                  return <MenuItem value={item}>{item}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth style={{ margin: "10px 0" }}>
+              <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                label="Gender"
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              >
+                <MenuItem value={"Male"}>Male</MenuItem>
+                <MenuItem value={"Female"}>Feeale</MenuItem>
+              </Select>
+            </FormControl>
+
             <TextField
               variant="outlined"
               margin="normal"

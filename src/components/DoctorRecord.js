@@ -4,10 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import UpdateIcon from "@mui/icons-material/Update";
-import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
+// import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
 import { Button } from "@material-ui/core";
 
-export default function PatientRecord(obj) {
+export default function DoctorRecord(obj) {
   return (
     <Card sx={{ marginTop: "5px", height: "50px" }}>
       <CardContent

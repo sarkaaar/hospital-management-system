@@ -8,24 +8,23 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { signOut, onAuthStateChanged } from "firebase/auth";
-// import { auth } from "../firebase-config";
+
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 export default function Header() {
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   const logout = async () => {
-    // await signOut(auth);
-    // localStorage.clear();
-    // history.push("/");
+    await signOut(auth);
+    localStorage.removeItem("token");
     navigate("/sign_in");
   };
-
+  // Keep the Satate of Login
   // onAuthStateChanged(auth, (currentUser) => {
   //   setUser(currentUser);
-  //   // localStorage.setItem("token", user.accessToken);
   // });
 
   return (
@@ -89,7 +88,7 @@ export default function Header() {
             </Button>
           </Typography>
 
-          {user.email ? (
+          {token ? (
             <div>
               <Button color="inherit" onClick={logout}>
                 Logout
