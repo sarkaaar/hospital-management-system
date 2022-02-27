@@ -1,6 +1,13 @@
 import * as React from "react";
 
 export default function ReportResultBody(obj) {
+  function toDate(dt) {
+    var dd = String(dt.getDate()).padStart(2, "0");
+    var mm = String(dt.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = dt.getFullYear();
+
+    return yyyy + "-" + mm + "-" + dd;
+  }
   const th = { width: "20%", display: "flex", justifyContent: "center" };
   return (
     <div style={{ display: "flex" }}>
@@ -10,7 +17,7 @@ export default function ReportResultBody(obj) {
       <hr />
       <h3 style={th}>{obj.obj.time}</h3>
       <hr />
-      <h3 style={th}>{obj.obj.date}</h3>
+      <h3 style={th}>{toDate(new Date(obj.obj.date))}</h3>
       <hr />
       <h3 style={th}>{obj.obj.issue}</h3>
       <hr />

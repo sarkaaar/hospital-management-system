@@ -44,7 +44,7 @@ export default function AddPatient() {
   const [MR_no, setMR_no] = useState("");
   const [name, setName] = useState("");
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const [issue, setIssue] = useState("");
   const [doc_Name, setDoc_Name] = useState("");
   const [gender, setGender] = useState("");
@@ -76,7 +76,7 @@ export default function AddPatient() {
       MR_no: MR_no,
       name: name,
       time: time,
-      date: date,
+      date: Date.parse(date),
       issue: issue,
       doc_Name: doc_Name,
       gender: gender,
@@ -89,28 +89,22 @@ export default function AddPatient() {
     await window.location.reload(false);
   };
 
+  const dateParse = new Date();
+
   return (
     <div>
       <Header />
       <Container component="main" maxWidth="xs">
-        <Button
-          onClick={() => {
-            console.log(doctors);
-          }}
-        >
-          Click Me
-        </Button>
+      
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Add a New Patient
           </Typography>
           <form
             className={classes.form}
-            // noValidate
           >
             <TextField
               variant="outlined"
@@ -249,6 +243,29 @@ export default function AddPatient() {
             </Grid>
           </form>
         </div>
+        <Button
+          variant="contained"
+          onClick={() => {
+            console.log(Date.parse(date));
+          }}
+        >
+          Print Date
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            console.log(new Date(1647561600000));
+          }}
+        >
+          Parse Date
+        </Button> <Button
+          variant="contained"
+          onClick={() => {
+            console.log(date);
+          }}
+        >
+          ActualDate
+        </Button>
       </Container>
     </div>
   );

@@ -12,14 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
 
-export default function Header() {
+export default function Header(obj) {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   const logout = async () => {
     await signOut(auth);
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate("/sign_in");
   };
 
@@ -84,7 +84,7 @@ export default function Header() {
             </Button>
           </Typography>
 
-          {token ? (
+          {obj.obj ? (
             <div>
               <Button color="inherit" onClick={logout}>
                 Logout
@@ -103,6 +103,7 @@ export default function Header() {
               </Button>
             </div>
           )}
+          {/* <button onClick={()=>{console.log(obj.obj.email)}}>click</button> */}
         </Toolbar>
       </AppBar>
     </div>

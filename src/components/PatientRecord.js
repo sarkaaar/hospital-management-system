@@ -8,6 +8,14 @@ import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
 import { Button } from "@material-ui/core";
 
 export default function PatientRecord(obj) {
+  function toDate(dt) {
+    var dd = String(dt.getDate()).padStart(2, "0");
+    var mm = String(dt.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = dt.getFullYear();
+
+    return yyyy + "-" + mm + "-" + dd;
+  }
+
   return (
     <Card sx={{ marginTop: "5px", height: "50px" }}>
       <CardContent
@@ -19,7 +27,7 @@ export default function PatientRecord(obj) {
           justifyItems: "space-between",
         }}
       >
-         <Typography style={{ width: "10%" }} variant="h6">
+        <Typography style={{ width: "10%" }} variant="h6">
           {obj.obj.MR_no}
         </Typography>
         <Typography style={{ width: "10%" }} variant="h6">
@@ -29,7 +37,8 @@ export default function PatientRecord(obj) {
           {obj.obj.time}
         </Typography>
         <Typography style={{ width: "10%" }} variant="h6">
-          {obj.obj.date}
+          {toDate(new Date(obj.obj.date))}
+          {/* <button onClick={()=>{console.log(toDate(new Date(obj.obj.date)))}}>click</button> */}
         </Typography>
         <Typography style={{ width: "10%" }} variant="h6">
           {obj.obj.issue}
@@ -63,7 +72,7 @@ export default function PatientRecord(obj) {
           <Button>
             <AirlineSeatFlatIcon />
           </Button>
-        </Typography> 
+        </Typography>
       </CardContent>
     </Card>
   );

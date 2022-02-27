@@ -36,19 +36,29 @@ export default function Reports() {
   const [pat_Contact, setPat_Contact] = useState([]);
   // ---------------------------------------------------------------------------
   // Report w.r.t Start and End Date
-  const search_To_From = async () => {};
+  const search_To_From = async () => {
+    const q = query(
+      patientsCollection,
+      where("date", "<", Date.parse(endDate)),
+      where("date", ">", Date.parse(startDate))
+    );
+    const queryResults = await getDocs(q);
+    setPatients(
+      queryResults.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+  };
   // ---------------------------------------------------------------------------
   // Report w.r.t Doctor Name and Date
   const search_Doctor_date = async () => {
     const q = query(
       patientsCollection,
       where("doc_Name", "==", docName),
-      where("date", "==", specDate)
+      where("date", "==", Date.parse(specDate))
     );
     const queryResults = await getDocs(q);
     setPatients(
       queryResults.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    ); 
+    );
   };
   //----------------------------------------------------------------------------
   // Report w.r.t Patient Contact
@@ -131,16 +141,6 @@ export default function Reports() {
               noValidate
               sx={{ mt: 1 }}
             >
-              {/* <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Doctor Name"
-                type="text"
-                value={docName}
-                onChange={(e) => setDocName(e.target.value)}
-              /> */}
               <FormControl fullWidth style={{ margin: "10px 0" }}>
                 <InputLabel id="demo-simple-select-label">
                   Doctor Name

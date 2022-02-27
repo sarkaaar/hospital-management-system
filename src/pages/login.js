@@ -62,7 +62,9 @@ export default function SignIn() {
         email,
         password
       );
-      console.log(LoggedInUser);
+      // console.log(LoggedInUser);
+      navigate("/viewAppointments");
+
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +77,7 @@ export default function SignIn() {
 
   return (
     <div>
-      <Header />
+      <Header obj={user} />
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -124,15 +126,6 @@ export default function SignIn() {
       </div>
       <div>
         <Button onClick={logout}>Logout</Button>
-      </div>
-      <div>
-        <Button
-          onClick={() => {
-            console.log(user.accessToken);
-          }}
-        >
-          Print Token
-        </Button>
       </div>
     </div>
   );

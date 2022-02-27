@@ -38,21 +38,19 @@ export default function ViewAppointments() {
 
     getPatients();
 
-    console.log(patients);
+    // console.log(patients);
   }, []);
 
-  const search_Patient_Contact = async () => {
-    const q = query(patientsCollection, where("date", "==", today()));
-    const queryResults = await getDocs(q);
+  // const search_Patient_Contact = async () => {
+  //   const q = query(patientsCollection, where("date", "==", today()));
+  //   const queryResults = await getDocs(q);
 
-    setPatients(
-      queryResults.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    ); // data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //   setPatients(
+  //     queryResults.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //   ); // data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 
-    // queryResults.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data());
-    // });
-  };
+    
+  // };
 
   function today() {
     var today = new Date();
@@ -63,11 +61,12 @@ export default function ViewAppointments() {
     today = yyyy + "-" + mm + "-" + dd;
 
     console.log(today);
-    return today;
+    return Date.parse(today);
   }
   return (
     <div>
       <Header />
+      <h1 style={{padding:"15px"}}>Today's Appointments</h1>
 
       <div style={{ margin: "50px" }}>
         <PatientRecordHead obj={head} style={{ marginBottom: "10px" }} />
