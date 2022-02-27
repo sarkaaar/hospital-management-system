@@ -118,7 +118,7 @@ export default function SignIn() {
           </form>
         </div>
       </Container>
-      {/* <div>
+      <div>
         <h1>USer Logged In</h1>
         <h3>{user?.email}</h3>
       </div>
@@ -133,7 +133,7 @@ export default function SignIn() {
         >
           Print Token
         </Button>
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -52,8 +52,6 @@ export default function AddPatient() {
   const [adress, setAdress] = useState("");
   const [phone_no, setPhone_no] = useState(0);
 
-  // const [doctors,setDoctors]=useState([]);
-
   const patientsCollection = collection(db, "patients");
 
   //  Get Doctors Names
@@ -105,7 +103,7 @@ export default function AddPatient() {
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Add a New Patient

@@ -22,10 +22,6 @@ export default function Header() {
     localStorage.removeItem("token");
     navigate("/sign_in");
   };
-  // Keep the Satate of Login
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUser(currentUser);
-  // });
 
   return (
     <div sx={{ flexGrow: 1 }}>
